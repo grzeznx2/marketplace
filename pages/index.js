@@ -1,5 +1,5 @@
 import { Navbar, Footer, Hero, Breadcrumbs } from '@components/common'
-import { WalletBar } from '@components/web3'
+import { EthRates, WalletBar } from '@components/web3'
 
 export default function Home() {
   return (
@@ -11,6 +11,7 @@ export default function Home() {
             <Hero />
             <Breadcrumbs />
             <WalletBar />
+            <EthRates />
           </div>
         </div>
         <Footer />
