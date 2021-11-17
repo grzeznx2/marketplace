@@ -1,4 +1,4 @@
-import { Navbar, Footer, Hero } from '@components/common'
+import { Navbar, Footer, Hero, Breadcrumbs } from '@components/common'
 
 export default function Home() {
   return (
@@ -8,6 +8,7 @@ export default function Home() {
           <Navbar />
           <div className="fit">
             <Hero />
+            <Breadcrumbs />
           </div>
         </div>
         <Footer />
