@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3 from 'web3'
 
@@ -32,7 +32,24 @@ export default function Web3Provider({ children }) {
     loadProvider()
   }, [])
 
-  return <Web3Context.Provider value={web3Api}>{children}</Web3Context.Provider>
+  const _web3Api = useMemo(() => {
+    const { provider } = web3Api
+
+    return {
+      ...web3Api,
+      connect: provider
+        ? async () => {
+            try {
+              provider.request({ method: 'eth_requestAccounts' })
+            } catch (error) {
+              location.reload()
+            }
+          }
+        : () => {},
+    }
+  }, [web3Api])
+
+  return <Web3Context.Provider value={_web3Api}>{children}</Web3Context.Provider>
 }
 
 export function useWeb3() {
