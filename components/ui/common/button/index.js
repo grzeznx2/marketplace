@@ -4,11 +4,7 @@ const Button = ({
   ...rest
 }) => {
   return (
-    <span
-      {...rest}
-      onClick={connect}
-      className={`px-8 py-3 border rounded-md text-base font-medium ${className}`}
-    >
+    <span {...rest} className={`px-8 py-3 border rounded-md text-base font-medium ${className}`}>
       {children}
     </span>
   )
