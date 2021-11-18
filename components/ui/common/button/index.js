@@ -4,9 +4,12 @@ const Button = ({
   ...rest
 }) => {
   return (
-    <span {...rest} className={`px-8 py-3 border rounded-md text-base font-medium ${className}`}>
+    <button
+      {...rest}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed px-8 py-3 border rounded-md text-base font-medium ${className}`}
+    >
       {children}
-    </span>
+    </button>
   )
 }
 
