@@ -21,7 +21,7 @@ export const createUseNetwork = (web3, provider) => () => {
     return NETWORKS[chainId]
   }
 
-  const { mutate, data, ...rest } = useSWR(getKey, getChainId)
+  const { mutate, data, error, ...rest } = useSWR(getKey, getChainId)
 
   useEffect(() => {
     provider && provider.on('chainChanged', chainId => mutate(NETWORKS[parseInt(chainId, 16)]))
@@ -31,6 +31,8 @@ export const createUseNetwork = (web3, provider) => () => {
     network: {
       mutate,
       data,
+      error,
+      hasFinishedFirstFetch: data || error,
       targetNetwork,
       isSupported: data === targetNetwork,
       ...rest,
