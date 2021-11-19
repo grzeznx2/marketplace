@@ -6,26 +6,16 @@ import { useWalletInfo } from '@components/hooks/web3'
 import { Breadcrumbs, Button } from '@components/ui/common'
 import { OrderModal } from '@components/ui/order'
 import { useState } from 'react'
-import { useEthPrice } from '@components/hooks/web3/useEthPrice'
 
 export default function Marketplace({ courses }) {
   const [selectedCourse, setSelectedCourse] = useState(null)
-  const { network, account, purchaseAvaiable } = useWalletInfo()
-  const { eth } = useEthPrice()
+  const { purchaseAvaiable } = useWalletInfo()
 
   return (
     <>
       <div className="pt-4">
-        <WalletBar
-          address={account.data}
-          network={{
-            data: network.data,
-            target: network.ta,
-            isSupported: network.isSupported,
-            hasInitialResponse: network.hasInitialResponse,
-          }}
-        />
-        <EthRates eth={eth} />
+        <WalletBar />
+        <EthRates />
         <div className="flex flex-row-reverse py-4 px-4 sm:px-6 lg:px-8">
           <Breadcrumbs />
         </div>

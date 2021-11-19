@@ -1,6 +1,10 @@
+import { useEthPrice } from '@components/hooks/web3/useEthPrice'
 import Image from 'next/image'
 
-export default function EthRates({ eth: { data, perItem } }) {
+export default function EthRates() {
+  const {
+    eth: { data, perItem },
+  } = useEthPrice()
   return (
     <div className="grid grid-cols-4">
       <div className="flex flex-1 items-stretch text-center">
