@@ -32,7 +32,7 @@ export const createUseNetwork = (web3, provider) => () => {
       mutate,
       data,
       error,
-      hasFinishedFirstFetch: data || error,
+      hasInitialResponse: data || error,
       targetNetwork,
       isSupported: data === targetNetwork,
       ...rest,
