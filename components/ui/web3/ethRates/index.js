@@ -1,4 +1,4 @@
-import { useEthPrice } from '@components/hooks/web3/useEthPrice'
+import { useEthPrice } from '@components/hooks/useEthPrice'
 import Image from 'next/image'
 
 export default function EthRates() {
