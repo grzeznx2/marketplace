@@ -11,7 +11,7 @@ const NETWORKS = {
   1337: 'Ganache',
 }
 
-const targetNetwork = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN]
+const target = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN]
 
 export const createUseNetwork = (web3, provider) => () => {
   const getKey = () => (web3 ? 'web3/network' : null)
@@ -30,8 +30,8 @@ export const createUseNetwork = (web3, provider) => () => {
   return {
     mutate,
     data,
-    targetNetwork,
-    isSupported: data === targetNetwork,
+    target,
+    isSupported: data === target,
     ...rest,
   }
 }
