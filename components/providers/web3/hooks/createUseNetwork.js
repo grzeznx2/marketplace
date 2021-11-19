@@ -28,14 +28,10 @@ export const createUseNetwork = (web3, provider) => () => {
   }, [provider])
 
   return {
-    network: {
-      mutate,
-      data,
-      error,
-      hasInitialResponse: data || error,
-      targetNetwork,
-      isSupported: data === targetNetwork,
-      ...rest,
-    },
+    mutate,
+    data,
+    targetNetwork,
+    isSupported: data === targetNetwork,
+    ...rest,
   }
 }
