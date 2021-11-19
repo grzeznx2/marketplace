@@ -11,6 +11,8 @@ const NETWORKS = {
   1337: 'Ganache',
 }
 
+const targetNetwork = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN]
+
 export const createUseNetwork = (web3, provider) => () => {
   const getKey = () => (web3 ? 'web3/network' : null)
 
@@ -19,7 +21,7 @@ export const createUseNetwork = (web3, provider) => () => {
     return NETWORKS[chainId]
   }
 
-  const { mutate, ...rest } = useSWR(getKey, getChainId)
+  const { mutate, data, ...rest } = useSWR(getKey, getChainId)
 
   useEffect(() => {
     provider && provider.on('chainChanged', chainId => mutate(NETWORKS[parseInt(chainId, 16)]))
@@ -28,6 +30,9 @@ export const createUseNetwork = (web3, provider) => () => {
   return {
     network: {
       mutate,
+      data,
+      targetNetwork,
+      isSupported: data === targetNetwork,
       ...rest,
     },
   }

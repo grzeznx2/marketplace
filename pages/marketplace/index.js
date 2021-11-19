@@ -12,7 +12,7 @@ export default function Marketplace({ courses }) {
   return (
     <>
       <div className="py-4">
-        <WalletBar address={account.data} network={network.data} />
+        <WalletBar address={account.data} network={network} />
       </div>
       <CourseList courses={courses}>
         {course => <CourseCard key={course.id} course={course} />}
