@@ -2,7 +2,7 @@ import { CourseCard, CourseList } from '@components/ui/course'
 import { BaseLayout } from '@components/ui/layout'
 import { getAllCourses } from '@content/courses/fetcher'
 import { EthRates, WalletBar } from '@components/ui/web3'
-import { useAccount, useNetwork } from '@components/hooks/web3'
+import { useWalletInfo } from '@components/hooks/web3'
 import { Button } from '@components/ui/common'
 import { OrderModal } from '@components/ui/order'
 import { useState } from 'react'
@@ -10,11 +10,8 @@ import { useEthPrice } from '@components/hooks/web3/useEthPrice'
 
 export default function Marketplace({ courses }) {
   const [selectedCourse, setSelectedCourse] = useState(null)
-  const { account } = useAccount()
-  const { network } = useNetwork()
+  const { network, account, purchaseAvaiable } = useWalletInfo()
   const { eth } = useEthPrice()
-
-  const purchaseAvaiable = !!(account.data && network.isSupported)
 
   return (
     <>
@@ -23,7 +20,7 @@ export default function Marketplace({ courses }) {
           address={account.data}
           network={{
             data: network.data,
-            target: network.target,
+            target: network.ta,
             isSupported: network.isSupported,
             hasInitialResponse: network.hasInitialResponse,
           }}

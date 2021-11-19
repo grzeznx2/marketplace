@@ -10,3 +10,16 @@ const enhanceHook = swrRes => {
 export const useAccount = () => ({ account: enhanceHook(useHooks(hooks => hooks.useAccount)()) })
 
 export const useNetwork = () => ({ network: enhanceHook(useHooks(hooks => hooks.useNetwork)()) })
+
+export const useWalletInfo = () => {
+  const { account } = useAccount()
+  const { network } = useNetwork()
+
+  const purchaseAvaiable = !!(account.data && network.isSupported)
+
+  return {
+    account,
+    network,
+    purchaseAvaiable,
+  }
+}
