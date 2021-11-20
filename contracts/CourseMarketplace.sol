@@ -15,4 +15,22 @@ contract CourseMarketplace {
         address owner;
         State state;
     }
+
+    mapping(bytes32 => Course) private ownedCourses;
+    mapping(uint256 => bytes32) private ownedCourseHash;
+    uint private totalOwnedCourses;
+
+
+    function purchaseCourse(bytes16 courseId, bytes32 proof) external payable {
+        bytes32 courseHash = keccak256(abi.encodePacked(courseId, msg.sender));
+        uint id = totalOwnedCourses++;
+        ownedCourseHash[id] = courseHash;
+        ownedCourses[courseHash] = Course({
+            id: id,
+            price: msg.value,
+            proof: proof,
+            owner: msg.sender,
+            state: State.Purchased
+        });
+    }
 }
