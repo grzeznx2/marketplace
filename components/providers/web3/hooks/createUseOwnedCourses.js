@@ -4,7 +4,7 @@ import useSWR from 'swr'
 export const createUseOwnedCourses =
   ({ web3, contract }) =>
   (courses, account) => {
-    const getKey = () => (web3 && contract && account ? 'web3/ownedCourses' : null)
+    const getKey = () => (web3 && contract && account ? `web3/ownedCourses/${account}` : null)
 
     const fetcher = async () => {
       const ownedCourses = []

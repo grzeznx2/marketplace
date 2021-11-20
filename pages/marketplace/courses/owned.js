@@ -8,7 +8,6 @@ import { getAllCourses } from '@content/courses/fetcher'
 export default function OwnedCourses({ courses }) {
   const { account } = useAccount()
   const { ownedCourses } = useOwnedCourses(courses, account.data)
-  console.log(ownedCourses)
 
   return (
     <>
@@ -16,10 +15,14 @@ export default function OwnedCourses({ courses }) {
         <MarketHeader />
       </div>
       <section className="grid grid-cols-1">
-        <OwnedCourseCard>
-          <Message>My custom message!</Message>
-          <Button>Watch the course</Button>
-        </OwnedCourseCard>
+        {ownedCourses.data?.map(course => (
+          <OwnedCourseCard key={course.id} course={course}>
+            {/* <Message>
+              My custom message!
+            </Message> */}
+            <Button>Watch the course</Button>
+          </OwnedCourseCard>
+        ))}
       </section>
     </>
   )
