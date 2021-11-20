@@ -20,9 +20,16 @@ contract CourseMarketplace {
     mapping(uint256 => bytes32) private ownedCourseHash;
     uint256 private totalOwnedCourses;
 
+    /// CourseMarketplace: user already owns this course
+    error AlreadyOwned();
 
     function purchaseCourse(bytes16 courseId, bytes32 proof) external payable {
         bytes32 courseHash = keccak256(abi.encodePacked(courseId, msg.sender));
+
+        if(_ownsCourse(courseHash)){
+            revert AlreadyOwned();
+        }
+
         uint id = totalOwnedCourses++;
         ownedCourseHash[id] = courseHash;
         ownedCourses[courseHash] = Course({
@@ -44,5 +51,9 @@ contract CourseMarketplace {
 
     function getCourseByHash(bytes32 courseHash) external view returns (Course memory) {
         return ownedCourses[courseHash];
+    }
+
+    function _ownsCourse(bytes32 courseHash) private view returns(bool){
+        return ownedCourses[courseHash].owner == msg.sender;
     }
 }
