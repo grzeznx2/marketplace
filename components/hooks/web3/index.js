@@ -11,8 +11,8 @@ export const useAccount = () => ({ account: enhanceHook(useHooks(hooks => hooks.
 
 export const useNetwork = () => ({ network: enhanceHook(useHooks(hooks => hooks.useNetwork)()) })
 
-export const useOwnedCourses = () => ({
-  ownedCourses: { data: useHooks(hooks => hooks.useOwnedCourses)() },
+export const useOwnedCourses = (...args) => ({
+  ownedCourses: enhanceHook(useHooks(hooks => hooks.useOwnedCourses)(...args)),
 })
 
 export const useWalletInfo = () => {
