@@ -1,9 +1,13 @@
+import { useOwnedCourses } from '@components/hooks/web3'
 import { Button, Message } from '@components/ui/common'
 import { OwnedCourseCard } from '@components/ui/course'
 import { BaseLayout } from '@components/ui/layout'
 import { MarketHeader } from '@components/ui/marketplace'
 
 export default function OwnedCourses() {
+  const { ownedCourses } = useOwnedCourses()
+  console.log(ownedCourses.data)
+
   return (
     <>
       <div className="py-4">
