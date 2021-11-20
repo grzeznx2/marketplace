@@ -11,7 +11,12 @@ export default function Course({ course }) {
   console.log(ownedCourse)
   return (
     <div className="py-4">
-      <CourseHero title={course.title} description={course.description} image={course.coverImage} />
+      <CourseHero
+        hasOwner={!!ownedCourse.data}
+        title={course.title}
+        description={course.description}
+        image={course.coverImage}
+      />
       <Keypoints points={course.wsl} />
       <Curriculum locked={true} />
       <Modal />
