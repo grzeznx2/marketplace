@@ -18,7 +18,7 @@ contract CourseMarketplace {
 
     mapping(bytes32 => Course) private ownedCourses;
     mapping(uint256 => bytes32) private ownedCourseHash;
-    uint private totalOwnedCourses;
+    uint256 private totalOwnedCourses;
 
 
     function purchaseCourse(bytes16 courseId, bytes32 proof) external payable {
@@ -32,5 +32,17 @@ contract CourseMarketplace {
             owner: msg.sender,
             state: State.Purchased
         });
+    }
+
+    function getCourseCount() external view returns (uint256){
+        return totalOwnedCourses;
+    }
+
+    function getCourseHashAt(uint256 index) external view returns (bytes32) {
+        return ownedCourseHash[index];
+    }
+
+    function getCourseByHash(bytes32 courseHash) external view returns (Course memory) {
+        return ownedCourses[courseHash];
     }
 }
