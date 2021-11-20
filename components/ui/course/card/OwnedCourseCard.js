@@ -1,6 +1,14 @@
 import Image from 'next/image'
 
+const STATE_COLORS = {
+  purchased: 'indigo',
+  activated: 'green',
+  deactivated: 'red',
+}
+
 export default function OwnedCourseCard({ children, course }) {
+  const stateColor = STATE_COLORS[course.state]
+
   return (
     <div className="bg-white border shadow overflow-hidden sm:rounded-lg mb-3">
       <div className="flex">
@@ -17,7 +25,14 @@ export default function OwnedCourseCard({ children, course }) {
         </div>
         <div className="flex-4">
           <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">{course.title}</h3>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              <span className="mr-2">{course.title}</span>
+              <span
+                className={`text-xs text-${stateColor}-700 bg-${stateColor}-200 rounded-full p-2`}
+              >
+                {course.state}
+              </span>
+            </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">{course.price} ETH</p>
           </div>
 
