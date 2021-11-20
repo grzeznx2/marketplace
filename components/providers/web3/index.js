@@ -13,7 +13,7 @@ export default function Web3Provider({ children }) {
     web3: null,
     contract: null,
     isLoading: true,
-    hooks: setupHooks(),
+    hooks: setupHooks({ web3: null, provider: null, contract: null }),
   })
 
   useEffect(() => {
@@ -22,13 +22,13 @@ export default function Web3Provider({ children }) {
       if (provider) {
         const web3 = new Web3(provider)
         const contract = await loadContract('CourseMarketplace', web3)
-        console.log(contract)
+
         setWeb3Api({
           provider,
           web3,
           contract,
           isLoading: false,
-          hooks: setupHooks(web3, provider),
+          hooks: setupHooks({ web3, provider, contract }),
         })
       } else {
         setWeb3Api(api => ({ ...api, isLoading: false }))

@@ -1,3 +1,5 @@
-export const createUseOwnedCourses = (web3, contract) => () => {
-  return 'Hello'
-}
+export const createUseOwnedCourses =
+  ({ web3, contract }) =>
+  () => {
+    return 'Hello'
+  }

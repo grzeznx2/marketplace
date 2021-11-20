@@ -2,10 +2,10 @@ import { createUseAccount } from './createUseAccount'
 import { createUseNetwork } from './createUseNetwork'
 import { createUseOwnedCourses } from './createUseOwnedCourses'
 
-export const setupHooks = (...deps) => {
+export const setupHooks = ({ web3, provider, contract }) => {
   return {
-    useAccount: createUseAccount(...deps),
-    useNetwork: createUseNetwork(...deps),
-    useOwnedCourses: createUseOwnedCourses(...deps),
+    useAccount: createUseAccount({ web3, provider }),
+    useNetwork: createUseNetwork({ web3, provider }),
+    useOwnedCourses: createUseOwnedCourses({ web3, contract }),
   }
 }

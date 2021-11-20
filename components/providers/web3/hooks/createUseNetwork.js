@@ -13,25 +13,27 @@ const NETWORKS = {
 
 const target = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN]
 
-export const createUseNetwork = (web3, provider) => () => {
-  const getKey = () => (web3 ? 'web3/network' : null)
+export const createUseNetwork =
+  ({ web3, provider }) =>
+  () => {
+    const getKey = () => (web3 ? 'web3/network' : null)
 
-  const getChainId = async () => {
-    const chainId = await web3.eth.getChainId()
-    return NETWORKS[chainId]
+    const getChainId = async () => {
+      const chainId = await web3.eth.getChainId()
+      return NETWORKS[chainId]
+    }
+
+    const { mutate, data, error, ...rest } = useSWR(getKey, getChainId)
+
+    useEffect(() => {
+      provider && provider.on('chainChanged', chainId => mutate(NETWORKS[parseInt(chainId, 16)]))
+    }, [provider])
+
+    return {
+      mutate,
+      data,
+      target,
+      isSupported: data === target,
+      ...rest,
+    }
   }
-
-  const { mutate, data, error, ...rest } = useSWR(getKey, getChainId)
-
-  useEffect(() => {
-    provider && provider.on('chainChanged', chainId => mutate(NETWORKS[parseInt(chainId, 16)]))
-  }, [provider])
-
-  return {
-    mutate,
-    data,
-    target,
-    isSupported: data === target,
-    ...rest,
-  }
-}
