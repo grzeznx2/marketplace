@@ -11,9 +11,13 @@ export default function Marketplace({ courses }) {
   const [selectedCourse, setSelectedCourse] = useState(null)
   const { purchaseAvaiable } = useWalletInfo()
 
+  const purchaseCourse = order => {
+    alert(JSON.stringify(order))
+  }
+
   return (
     <>
-      <div className="pt-4">
+      <div className="py-4">
         <MarketHeader />
       </div>
       <CourseList courses={courses}>
@@ -26,8 +30,8 @@ export default function Marketplace({ courses }) {
               <div className="mt-4">
                 <Button
                   onClick={() => setSelectedCourse(course)}
-                  variant="lightPurple"
                   disabled={!purchaseAvaiable}
+                  variant="lightPurple"
                 >
                   Purchase
                 </Button>
@@ -37,7 +41,11 @@ export default function Marketplace({ courses }) {
         )}
       </CourseList>
       {selectedCourse && (
-        <OrderModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
+        <OrderModal
+          course={selectedCourse}
+          onSubmit={purchaseCourse}
+          onClose={() => setSelectedCourse(null)}
+        />
       )}
     </>
   )
